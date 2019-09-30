@@ -2,7 +2,7 @@ FROM python:3
 
 # Install deps
 RUN apt update && apt install -y --no-install-recommends git libgtest-dev cmake wget unzip libtinfo-dev libz-dev \
-     libcurl4-openssl-dev libopenblas-dev g++ sudo python3-dev python3-pip
+     libcurl4-openssl-dev libopenblas-dev g++ sudo python3-dev
 
 # Build gtest
 RUN cd /usr/src/gtest && cmake CMakeLists.txt && make && cp *.a /usr/lib
@@ -30,7 +30,7 @@ ENV PYTHONPATH=/usr/tvm/python:/usr/tvm/topi/python:/usr/tvm/nnvm/python/:/usr/t
 
 # Basic deps, deep learning frameworks, and jupyter notebook.
 # TODO(jknight) how many of these are necessary?
-RUN pip3 install numpy pytest cython decorator scipy && \
+RUN pip3 install numpy pytest cython decorator scipy \
      mxnet tensorflow keras gluoncv dgl
 
 # RUN pip3 install matplotlib Image Pillow jupyter[notebook]

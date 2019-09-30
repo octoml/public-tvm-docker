@@ -32,7 +32,7 @@ ENV PYTHONPATH=/usr/tvm/python:/usr/tvm/topi/python:/usr/tvm/nnvm/python/:/usr/t
 
 # Basic deps, deep learning frameworks, and jupyter notebook.
 # TODO(jknight) how many of these are necessary?
-RUN pip3 install numpy pytest cython decorator scipy && \
+RUN pip3 install numpy pytest cython decorator scipy \
      mxnet tensorflow keras gluoncv dgl
 
 # Environment variables
