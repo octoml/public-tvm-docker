@@ -22,7 +22,7 @@ RUN bash -c \
      mkdir -p build && \
      cd build && \
      cmake .. && \
-     make -j16"
+     make -j2"
 ENV PYTHONPATH=/usr/tvm/python:/usr/tvm/topi/python:${PYTHONPATH}
 
 WORKDIR /root
