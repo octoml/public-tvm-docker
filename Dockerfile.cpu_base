@@ -11,8 +11,9 @@ RUN echo deb http://apt.llvm.org/buster/ llvm-toolchain-buster-8 main \
      apt-get update && apt-get install -y llvm-8
 
 # Build TVM
-RUN cd /usr && git clone --depth=1 https://github.com/apache/incubator-tvm.git --recursive
+RUN cd /usr && git clone --depth=1 https://github.com/apache/incubator-tvm.git tvm --recursive
 WORKDIR /usr/tvm
+RUN git checkout 331f6fd012763438c6d756be051b6e2c8a96f61c
 RUN bash -c \
      "echo set\(USE_LLVM llvm-config-8\) >> config.cmake && \
      echo set\(USE_RPC ON\) >> config.cmake && \
