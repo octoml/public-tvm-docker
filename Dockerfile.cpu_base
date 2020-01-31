@@ -2,25 +2,30 @@ FROM python:3.7
 
 # Install deps
 RUN apt update && apt install -y --no-install-recommends git libgtest-dev cmake wget unzip libtinfo-dev libz-dev \
-     libcurl4-openssl-dev libopenblas-dev g++ sudo python3-dev
+     libcurl4-openssl-dev libopenblas-dev g++ sudo python3-dev antlr4 && \
+     pip install --upgrade pip && pip install pylint==1.9.4 six numpy pytest cython decorator scipy tornado \
+     typed-ast pytest mypy orderedset antlr4-python3-runtime attrs requests "Pillow<7" packaging 
 
 # LLVM
-RUN echo deb http://apt.llvm.org/buster/ llvm-toolchain-buster-8 main \
+RUN echo deb http://apt.llvm.org/buster/ llvm-toolchain-buster-9 main \
      >> /etc/apt/sources.list.d/llvm.list && \
      wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add - && \
-     apt-get update && apt-get install -y llvm-8
+     apt-get update && apt-get install -y llvm-9
 
 # Build TVM
-RUN cd /usr && git clone https://github.com/apache/incubator-tvm.git tvm --recursive
+RUN cd /usr && \
+    git clone --depth=1 https://github.com/apache/incubator-tvm.git tvm --recursive && \
+    git checkout 3827ccb5dd6c493e94cc94d8064177a564225939
+    rm -rf /usr/tvm/.git
 WORKDIR /usr/tvm
-RUN git checkout 331f6fd012763438c6d756be051b6e2c8a96f61c
 RUN bash -c \
-     "echo set\(USE_LLVM llvm-config-8\) >> config.cmake && \
+     "echo set\(USE_LLVM llvm-config-9\) >> config.cmake && \
      echo set\(USE_RPC ON\) >> config.cmake && \
      echo set\(USE_SORT ON\) >> config.cmake && \
      echo set\(USE_GRAPH_RUNTIME ON\) >> config.cmake && \
      echo set\(USE_GRAPH_RUNTIME_DEBUG ON\) >> config.cmake && \
      echo set\(USE_BLAS openblas\) >> config.cmake && \
+     echo set\(USE_ANTLR ON\) >> config.cmake && \
      mkdir -p build && \
      cd build && \
      cmake .. && \
