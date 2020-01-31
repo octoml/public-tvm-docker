@@ -15,7 +15,9 @@ RUN echo deb http://apt.llvm.org/buster/ llvm-toolchain-buster-9 main \
 # Build TVM
 RUN cd /usr && \
     git clone --depth=1 https://github.com/apache/incubator-tvm.git tvm --recursive && \
-    git checkout 3827ccb5dd6c493e94cc94d8064177a564225939
+    cd /usr/tvm && \
+    git checkout 3827ccb5dd6c493e94cc94d8064177a564225939 && \
+    rm -rf .git
 WORKDIR /usr/tvm
 RUN bash -c \
      "echo set\(USE_LLVM llvm-config-9\) >> config.cmake && \
