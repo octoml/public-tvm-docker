@@ -4,7 +4,7 @@ FROM python:3.7
 RUN apt update && apt install -y --no-install-recommends git libgtest-dev cmake wget unzip libtinfo-dev libz-dev \
      libcurl4-openssl-dev libopenblas-dev g++ sudo python3-dev antlr4 && \
      pip install --upgrade pip && pip install pylint==1.9.4 six numpy pytest cython decorator scipy tornado \
-     typed-ast pytest mypy orderedset antlr4-python3-runtime attrs requests "Pillow<7" packaging 
+     typed-ast pytest mypy orderedset antlr4-python3-runtime attrs requests "Pillow<7" packaging
 
 # LLVM
 RUN echo deb http://apt.llvm.org/buster/ llvm-toolchain-buster-9 main \
@@ -16,7 +16,7 @@ RUN echo deb http://apt.llvm.org/buster/ llvm-toolchain-buster-9 main \
 RUN cd /usr && \
     git clone https://github.com/apache/incubator-tvm.git tvm --recursive && \
     cd /usr/tvm && \
-    git checkout 3827ccb5dd6c493e94cc94d8064177a564225939 && \
+    git checkout 13140916eeb6fc33b962f3faf9dbe6b702057865 && \
     rm -rf .git
 WORKDIR /usr/tvm
 RUN bash -c \

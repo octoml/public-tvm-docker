@@ -4,7 +4,7 @@ FROM nvidia/cuda:9.0-cudnn7-devel
 RUN apt update && apt install -y --no-install-recommends git libgtest-dev cmake wget unzip libtinfo-dev libz-dev \
      libcurl4-openssl-dev libopenblas-dev g++ sudo python3-dev python3-pip python3-setuptools antlr4 && \
      pip3 install --upgrade pip && pip3 install pylint==1.9.4 six numpy pytest cython decorator scipy tornado \
-     typed-ast pytest mypy orderedset antlr4-python3-runtime attrs requests "Pillow<7" packaging 
+     typed-ast pytest mypy orderedset antlr4-python3-runtime attrs requests "Pillow<7" packaging
 
 
 # LLVM
@@ -17,7 +17,7 @@ RUN echo deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-9 main \
 RUN cd /usr && \
     git clone https://github.com/apache/incubator-tvm.git tvm --recursive && \
     cd /usr/tvm && \
-    git checkout 3827ccb5dd6c493e94cc94d8064177a564225939 && \
+    git checkout 13140916eeb6fc33b962f3faf9dbe6b702057865 && \
     rm -rf .git
 WORKDIR /usr/tvm
 RUN bash -c \
