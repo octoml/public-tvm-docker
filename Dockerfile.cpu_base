@@ -14,10 +14,10 @@ RUN echo deb http://apt.llvm.org/buster/ llvm-toolchain-buster-9 main \
 
 # Build TVM
 RUN cd /usr && \
-    git clone https://github.com/apache/incubator-tvm.git tvm --recursive && \
-    cd /usr/tvm && \
-    git checkout 13140916eeb6fc33b962f3faf9dbe6b702057865 && \
-    rm -rf .git
+     git clone https://github.com/apache/incubator-tvm.git tvm --recursive && \
+     cd /usr/tvm && \
+     git checkout c286b2dff061f32a7bc6d43f99921954ade4deb3 && \
+     rm -rf .git
 WORKDIR /usr/tvm
 RUN bash -c \
      "echo set\(USE_LLVM llvm-config-9\) >> config.cmake && \
