@@ -1,4 +1,4 @@
-FROM nvidia/cuda:9.0-cudnn7-devel
+FROM nvidia/cuda:10.2-cudnn7-devel
 
 # Install deps
 RUN apt update && apt install -y --no-install-recommends git libgtest-dev cmake wget unzip libtinfo-dev libz-dev \
@@ -8,7 +8,7 @@ RUN apt update && apt install -y --no-install-recommends git libgtest-dev cmake 
 
 
 # LLVM
-RUN echo deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-9 main \
+RUN echo deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main \
      >> /etc/apt/sources.list.d/llvm.list && \
      wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add - && \
      apt-get update && apt-get install -y llvm-9
@@ -40,6 +40,9 @@ ENV PYTHONPATH=/usr/tvm/python:/usr/tvm/topi/python:${PYTHONPATH}
 ENV PATH=/usr/local/nvidia/bin:${PATH}
 ENV PATH=/usr/local/cuda/bin:${PATH}
 ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
+
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
 
 WORKDIR /root
 CMD ["bash"]
