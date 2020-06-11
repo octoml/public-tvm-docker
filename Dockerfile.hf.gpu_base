@@ -17,7 +17,7 @@ RUN echo deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main \
 RUN cd /usr && \
      git clone https://github.com/jwfromm/tvm.git tvm --recursive && \
      cd /usr/tvm && \
-     git checkout e39b97fdaac91d284b36c0a31c57fd838bb26465 && \
+     git checkout e5cc4d818fcfe651fc05affa173e2f995f74e47a && \
      rm -rf .git
 WORKDIR /usr/tvm
 RUN bash -c \
@@ -45,7 +45,7 @@ ENV TVM_ROOT=/usr/tvm
 
 WORKDIR /usr/tvm/apps/huggingface
 RUN cd hf_extension && \
-     pip3 install tensorflow==2.1.0 transformers && \
+     pip3 install tensorflow==2.2.0 transformers && \
      make
 
 ENV LC_ALL=C.UTF-8
