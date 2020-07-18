@@ -1,5 +1,5 @@
-FROM python:3.7
-
+FROM python:3.8
+ARG TVM_HASH
 # Install deps
 RUN apt update && apt install -y --no-install-recommends git libgtest-dev cmake wget unzip libtinfo-dev libz-dev \
      libcurl4-openssl-dev libopenblas-dev g++ sudo python3-dev antlr4 && \
@@ -16,7 +16,7 @@ RUN echo deb http://apt.llvm.org/buster/ llvm-toolchain-buster-9 main \
 RUN cd /usr && \
      git clone https://github.com/apache/incubator-tvm.git tvm --recursive && \
      cd /usr/tvm && \
-     git checkout c286b2dff061f32a7bc6d43f99921954ade4deb3 && \
+     git checkout $TVM_HASH && \
      rm -rf .git
 WORKDIR /usr/tvm
 RUN bash -c \
