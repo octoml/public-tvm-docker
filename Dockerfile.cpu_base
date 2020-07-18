@@ -17,6 +17,7 @@ RUN cd /usr && \
      git clone https://github.com/apache/incubator-tvm.git tvm --recursive && \
      cd /usr/tvm && \
      git checkout $TVM_HASH && \
+     echo $TVM_HASH > GIT_SHA && \
      rm -rf .git
 WORKDIR /usr/tvm
 RUN bash -c \
@@ -30,7 +31,7 @@ RUN bash -c \
      mkdir -p build && \
      cd build && \
      cmake .. && \
-     make -j2"
+     make -j10"
 ENV PYTHONPATH=/usr/tvm/python:/usr/tvm/topi/python:${PYTHONPATH}
 
 WORKDIR /root
