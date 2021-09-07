@@ -1,4 +1,8 @@
-FROM nvidia/cuda:10.2-cudnn7-devel
+FROM nvidia/cuda:11.4.1-cudnn8-devel-ubuntu20.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=America/Los_Angeles
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install deps
 RUN apt update && apt install -y --no-install-recommends git libgtest-dev cmake wget unzip libtinfo-dev libz-dev \
@@ -8,20 +12,20 @@ RUN apt update && apt install -y --no-install-recommends git libgtest-dev cmake 
 
 
 # LLVM
-RUN echo deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main \
+RUN echo deb http://apt.llvm.org/focal/ llvm-toolchain-focal-12 main \
      >> /etc/apt/sources.list.d/llvm.list && \
      wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add - && \
-     apt-get update && apt-get install -y llvm-9
+     apt-get update && apt-get install -y llvm-12
 
 # Build TVM
 RUN cd /usr && \
      git clone https://github.com/apache/incubator-tvm.git tvm --recursive && \
      cd /usr/tvm && \
-     git checkout c286b2dff061f32a7bc6d43f99921954ade4deb3 && \
+     git checkout 00347324baab47ea75d6994d7936c9ba37512a7d && \
      rm -rf .git
 WORKDIR /usr/tvm
 RUN bash -c \
-     "echo set\(USE_LLVM llvm-config-9\) >> config.cmake && \
+     "echo set\(USE_LLVM llvm-config-12\) >> config.cmake && \
      echo set\(USE_CUDA ON\) >> config.cmake && \
      echo set\(USE_CUDNN ON\) >> config.cmake && \
      echo set\(USE_RPC ON\) >> config.cmake && \
